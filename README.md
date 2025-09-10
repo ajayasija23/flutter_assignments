@@ -9,14 +9,10 @@ This project is part of **Assignment 5** from the TuteDude Flutter course.
 
 ## Description
 
-This app is a simple BMI calculator:
+This app is a Weather forecasting app
 
-- On the first screen, users can select their gender.
-- After clicking **Continue**, they are taken to the next screen where they can enter their **height, weight, and age**.
-- Once they press **Continue**, a dialog box appears showing their calculated BMI result.
+- The app is show current and hourly forecast using weather api
 
 ## Screenshots
 
-![Screenshot not found](screenshots/img.png)  
-![Screenshot not found](screenshots/img_1.png)  
-![Screenshot not found](screenshots/img_2.png)  
+![Screenshot not found](screenshots/img.png)

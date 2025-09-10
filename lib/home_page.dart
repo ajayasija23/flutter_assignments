@@ -1,21 +1,42 @@
-import 'package:emojis_demo/enter_detail_page.dart';
-import 'package:emojis_demo/util/theme.dart';
+import 'package:emojis_demo/models/WeatherData.dart';
+import 'package:emojis_demo/util/api_helper.dart';
+import 'package:emojis_demo/util/util_functions.dart';
 import 'package:emojis_demo/widget_helper.dart';
-import 'package:emojis_demo/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spinning_wheel/controller/spin_controller.dart';
-import 'package:spinning_wheel/spinner_wheel.dart';
 
 class HomePage extends StatefulWidget {
+
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   final SpinnerController controller = SpinnerController();
+  final ApiHelper apiHelper=ApiHelper();
+  WeatherData? weatherData = null;
 
-  bool isMale =true;
+  @override
+  void initState() {
+    super.initState();
+
+    fetchWeather();
+
+  }
+  void fetchWeather() async {
+    final position=await UtilFunctions.determinePosition();
+    dynamic params= <String,Object>{};
+    params["q"]="${position.latitude},${position.longitude}";
+    dynamic weatherData =await apiHelper.fetchWeather(
+        params
+    );
+    setState(() {
+      this.weatherData=weatherData;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,79 +46,110 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildHomeBody(BuildContext context) {
+    double height= MediaQuery.of(context).size.height;
+    double width= MediaQuery.of(context).size.height;
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+        image: DecorationImage(image: AssetImage("assets/bg_weather.png"),fit: BoxFit.fill)
+      ),
+      child: SafeArea(
+        child: weatherData==null ? Center(child: CircularProgressIndicator()) : _showWeatherData()
+      )
+    );
+  }
 
-    return SafeArea(
-      minimum: const EdgeInsets.all(12),
-      child: Center(
+  Widget _showWeatherData() {
+    return Padding(
+      padding: EdgeInsets.all(16.0), // optional spacing from edges
+      child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start, // aligns items inside column
           children: [
-            // Counter at the top
-            20.h,
             Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end, // align everything to right
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "BMI",
-                  textAlign: TextAlign.center,
-                  style: TextStyles.robotoH1.copyWith(color: secondaryColor)
-                ),
-                8.w,
-                Text(
-                  "Calculator",
-                  textAlign: TextAlign.center,
-                  style: TextStyles.robotoH1.copyWith(color: primaryColor)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // aligns items inside column
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("${weatherData!.current?.tempC} °C", style: TextStyles.robotoH1),
+                        16.w,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("H: ${weatherData!.forecast?.forecastday![0].day?.maxtempC} °C", style: TextStyles.robotoBody),
+                            Text("L: ${weatherData!.forecast?.forecastday![0].day?.mintempC} °C", style: TextStyles.robotoBody),
+                          ],
+                        ),
+                      ],
+                    ),
+                    8.h,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset("assets/ic_location.svg",height: 24,fit: BoxFit.fitHeight,),
+                        8.w,
+                        Text("${weatherData!.location?.name}, ${weatherData!.location?.country}", style: TextStyles.robotoTitle.copyWith(fontSize: 22)),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
+            350.h,
+            Text("${weatherData!.current?.condition?.text}, Feels Like ${weatherData!.current?.feelslikeC} °C", style: TextStyles.robotoBody.copyWith(color: Colors.black,fontWeight: FontWeight.bold)),
             16.h,
-            Text("Please choose your gender", style: TextStyles.robotoTitle),
-            16.h,
-            _buildGender(primaryColor, "Male", "assets/ic_male.svg",primaryDark,isMale),
-            16.h,
-            _buildGender(secondaryColor, "Female", "assets/ic_female.svg",secondaryDark,!isMale),
-            const Spacer(),
-            SimpleButton(text: "Continue",backgroundColor: primaryColor,onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EnterDetailPage(gender: isMale?"Male":"Female",)),
-              );
-            },),
-            16.h
+            _buildForeCast()
           ],
         ),
       ),
     );
   }
 
-  Widget _buildGender(Color color, String text, String asset,Color textColor, bool isSelected) {
-    return  GestureDetector(
-      onTap: (){
-        setState(() {
-          isMale=!isMale;
-        });
-      },
-      child: Container(
-          height: 180,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: color.withAlpha(50),
-            border: isSelected ? Border.all(
-              color: textColor, // Color of the border
-              width: 2.0,         // Width of the border
-              style: BorderStyle.solid, // Style of the border (e.g., solid, dashed)
-            ):null
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(text, style: TextStyles.robotoTitle.copyWith(color: textColor)),
-              SvgPicture.asset(asset,height: 120,width: 120,)
-            ],
-          )
+  Widget _buildForeCast() {
+    final forecastHours = weatherData!.forecast!.forecastday?[0].hour;
+    forecastHours?.forEach((element) => print("https:${element.condition?.icon}"));
+    return SizedBox(
+      height: 160, // fixed height for horizontal list
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: forecastHours?.length ?? 0,
+        itemBuilder: (BuildContext context, int index) {
+          final hour = forecastHours![index];
+          return Container(
+            width: 80,
+            margin: EdgeInsets.symmetric(horizontal: 8),
+            decoration: BoxDecoration(
+              color: Colors.grey.withAlpha(20),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Colors.blue, // border color
+                width: 1,           // border width
+              ),
+            ),
+            padding: EdgeInsets.all(8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  UtilFunctions.formatUnixTime(hour.timeEpoch?.toInt() ?? 0),
+                  style: TextStyles.robotoBody.copyWith(color: Colors.black),
+                ),
+                Image.network("https:${hour.condition?.icon}"),
+                Text("${hour.tempC} °C", style: TextStyles.robotoBody.copyWith(color: Colors.black)),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
+
 }
+
+

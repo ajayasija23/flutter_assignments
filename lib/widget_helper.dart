@@ -14,6 +14,9 @@ extension SpaceExtension on num {
   SizedBox get h => SizedBox(height: toDouble());
 }
 
+extension TitleCase on String{
+  String get titleCase => this[0].toUpperCase() + this.substring(1);
+}
 
 class SimpleButton extends StatelessWidget {
   const SimpleButton({
@@ -111,53 +114,53 @@ class TextStyles {
   static const TextStyle body = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   // Small text
   static const TextStyle small = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,
-    color: Colors.grey,
+    color: Colors.white,
   );
 
   // Headings
   static const TextStyle h1 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static const TextStyle h2 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   static const TextStyle h3 = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: Colors.white,
   );
 
   // Using Google Fonts (Roboto)
   // Note: GoogleFonts cannot be const, so these are static final
-  static final TextStyle robotoBody = GoogleFonts.roboto(
-    fontSize: 16,
+  static final TextStyle robotoBody = GoogleFonts.sarabun(
+    fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: Colors.black54,
+    color: Colors.white,
   );
 
-  static final TextStyle robotoTitle = GoogleFonts.roboto(
+  static final TextStyle robotoTitle = GoogleFonts.sarabun(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: Colors.black54,
+    color: Colors.white,
   );
 
-  static final TextStyle robotoH1 = GoogleFonts.roboto(
+  static final TextStyle robotoH1 = GoogleFonts.sarabun(
     fontSize: 32,
     fontWeight: FontWeight.bold,
-    color: Colors.black54,
+    color: Colors.white,
   );
 }
 
