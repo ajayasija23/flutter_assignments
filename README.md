@@ -4,8 +4,8 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is part of **Assignment 5** from the TuteDude Flutter course.  
-**Task: Build an Interactive BMI Calculator**
+This project is part of **Assignment 6** from the TuteDude Flutter course.  
+**Task: Build an Interactive Weather App**
 
 ## Description
 
