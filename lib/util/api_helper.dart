@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:emojis_demo/models/WeatherData.dart';
+import 'package:emojis_demo/models/PokemonData.dart';
 class ApiHelper{
   final dio = Dio();
-  final String baseUrl="https://api.weatherapi.com/v1/forecast.json";
-  final String apiKey="a1ea999f036048fe8ed124722250809";
+  final String baseUrl="https://pokeapi.co/api/v2/pokemon";
 
-  Future<WeatherData?> fetchWeather(Map<String,Object> params) async {
-    params["key"]=apiKey;
+  Future<PokemonData?> fetchPokeMons() async {
+    final params= Map<String,String>();
+    params["offset"]="0";
+    params["limit"]="20";
     final  response = await dio.get(baseUrl,queryParameters: params);
     print(response.data);
-    return WeatherData.fromJson(response.data);
+    return PokemonData.fromJson(response.data);
   }
 }

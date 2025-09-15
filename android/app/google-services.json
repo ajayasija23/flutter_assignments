@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "119269551240",
+    "firebase_url": "https://ajay-8991b-default-rtdb.firebaseio.com",
+    "project_id": "ajay-8991b",
+    "storage_bucket": "ajay-8991b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119269551240:android:3305664b8ba2119e55033d",
+        "android_client_info": {
+          "package_name": "com.example.card_connect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsERr8q6f-1QiOYWszPYWniIZ8KegWNq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
