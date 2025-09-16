@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       showSemanticsDebugger: false,
       theme: theme,
-      home:HomePage()
+      home:LoginPage()
     );
   }
 }
