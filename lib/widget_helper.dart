@@ -258,7 +258,7 @@ class TextStyles {
   static final TextStyle robotoTitle = GoogleFonts.workSans(
     fontSize: 20,
     fontWeight: FontWeight.normal,
-    color: Colors.black54,
+    color: Colors.black,
   );
 
   static final TextStyle robotoH1 = GoogleFonts.workSans(

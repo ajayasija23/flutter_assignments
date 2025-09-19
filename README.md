@@ -4,20 +4,20 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is part of **Assignment 7** from the TuteDude Flutter course.  
-**Create “Poképedia” – A Fun & Creative Pokédex App**
+This project is part of **Final Assignment** from the TuteDude Flutter course.  
+**Created Math Master Quiz App**
 
 ## Description
 
 This app is a Creative Pokédex App
 
-- The app first show login screen where user can enter his email and password to login
-- On tap don't have an account he will be redirected to signup page
-- once login or signup he can se home page where he can see list of pokemons fetched from apis
+- The app first show Welcome screen with logo and name
+- When user click get started math quiz get starts. It show randomly generated question and randomly generated option . When user select
+option it shows if it is correct and wrong by green and red color. it also plays a sound based on correct or wrong
+- When user press finish it show score screen
 
-## Screenshots
 
-![Screenshot not found](screenshots/img.png)
-![Screenshot not found](screenshots/img_1.png)
-![Screenshot not found](screenshots/img_2.png)
-![Screenshot not found](screenshots/img_3.png)
+## video
+  Please check below video
+
+![Screenshot not found](screenshots/math_master.mp4)

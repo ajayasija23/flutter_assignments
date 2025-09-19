@@ -9,8 +9,10 @@ final theme= ThemeData(
 
 //colors
 
-const primaryColor = Color(0xFF0098FF);
-const primaryDark = Color(0xFF0098FF);
-const secondaryColor = Color(0xFFFFB534);
+const primaryColor = Color(0xFFFC542C);
+const primaryDark = Colors.indigoAccent;
+const green = Color(0xFF08A66E);
+const red = Color(0xFFDE4D20);
+const secondaryColor = Color(0xFFFCC838);
 const secondaryDark = Color(0xFFCE922A);
 const lightPrimary = Color(0xFFF0F8EC);
