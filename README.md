@@ -20,4 +20,4 @@ option it shows if it is correct and wrong by green and red color. it also plays
 ## video
   Please check below video
 
-![Screenshot not found](screenshots/mm.gif)
+<img src="screenshots/mm.gif" width="300" height="auto">
